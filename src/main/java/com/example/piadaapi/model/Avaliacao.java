@@ -8,19 +8,15 @@ import java.time.LocalDateTime;
 
 @Document
 @Data
-public class Piada {
+public class Avaliacao {
 
     @Id
     private String id;
 
-    private Tipo tipo;
+    private Piada piada;
 
-    private String titulo;
+    private int nota; // 1 a 10
 
-    private String conteudo;
-
-    private String descricao;
-
-    private LocalDateTime dataCriacao;
+    private LocalDateTime dataAvaliacao;
 
 }

@@ -12,7 +12,6 @@ public class PiadaController {
 
     private final PiadaService piadaService;
 
-
     public PiadaController(PiadaService piadaService) {
         this.piadaService = piadaService;
     }

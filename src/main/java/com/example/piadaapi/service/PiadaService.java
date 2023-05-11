@@ -6,6 +6,7 @@ import com.example.piadaapi.model.Tipo;
 import com.example.piadaapi.repository.PiadaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,7 @@ public class PiadaService {
             piada.setTitulo(dto.getNome());
             piada.setConteudo(dto.getConteudo());
             piada.setDescricao(dto.getDescricao());
+            piada.setDataCriacao(LocalDateTime.now());
 
             final String descTipo = dto.getTipo();
 
