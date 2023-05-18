@@ -13,4 +13,6 @@ public class PiadaDto {
 
     private String descricao;
 
+    private AutorDto autorDto;
+
 }

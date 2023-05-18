@@ -4,25 +4,19 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-
 @Document
 @Data
-public class Piada {
+public class Autor {
 
     @Id
     private String id;
 
-    private Tipo tipo;
+    private String nome;
 
-    private String titulo;
+    private String telefone;
 
-    private String conteudo;
+    private String email;
 
-    private String descricao;
-
-    private Autor autor;
-
-    private LocalDateTime dataCriacao;
+    private Cidade cidade;
 
 }

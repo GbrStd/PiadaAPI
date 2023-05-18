@@ -1,6 +1,8 @@
 package com.example.piadaapi.service;
 
 import com.example.piadaapi.dto.PiadaDto;
+import com.example.piadaapi.model.Autor;
+import com.example.piadaapi.model.Cidade;
 import com.example.piadaapi.model.Piada;
 import com.example.piadaapi.model.Tipo;
 import com.example.piadaapi.repository.PiadaRepository;
@@ -15,10 +17,14 @@ import java.util.Optional;
 public class PiadaService {
 
     private final PiadaRepository piadaRepository;
+    private final AutorService autorService;
+    private final CidadeService cidadeService;
     private final TipoService tipoService;
 
-    public PiadaService(PiadaRepository piadaRepository, TipoService tipoService) {
+    public PiadaService(PiadaRepository piadaRepository, AutorService autorService, CidadeService cidadeService, TipoService tipoService) {
         this.piadaRepository = piadaRepository;
+        this.autorService = autorService;
+        this.cidadeService = cidadeService;
         this.tipoService = tipoService;
     }
 
@@ -28,6 +34,26 @@ public class PiadaService {
 
         for (PiadaDto dto : piadaDto) {
             final Piada piada = new Piada();
+
+            autorService.findByNomeIgnoreCase(dto.getAutorDto().getNome()).ifPresent(piada::setAutor);
+
+            if (piada.getAutor() == null) {
+                final Autor autor = new Autor();
+
+                autor.setNome(dto.getAutorDto().getNome());
+                autor.setTelefone(dto.getAutorDto().getTelefone());
+                autor.setEmail(dto.getAutorDto().getEmail());
+
+                cidadeService.findByNomeIgnoreCase(dto.getAutorDto().getCidade()).ifPresent(autor::setCidade);
+
+                if (autor.getCidade() == null) {
+                    Cidade c = new Cidade();
+                    c.setNome(dto.getAutorDto().getCidade());
+                    autor.setCidade(cidadeService.insert(c));
+                }
+
+                piada.setAutor(autorService.insert(autor));
+            }
 
             piada.setTitulo(dto.getNome());
             piada.setConteudo(dto.getConteudo());
